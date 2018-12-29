@@ -1,0 +1,305 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    CIRCUMFLEX
+    COMMA
+    DIVIDE
+    EQUALS
+    FLOAT
+    GT
+    LINE
+    LPAREN
+    LT
+    MINUS
+    PLUS
+    RPAREN
+    SEMI_COLON
+    STRING_LITERAL
+    TIMES
+    WORD
+
+Grammar
+
+Rule 0     S' -> line
+Rule 1     line -> command
+Rule 2     command -> list
+Rule 3     command -> exit
+Rule 4     command -> run
+Rule 5     command -> cls
+Rule 6     command -> erase
+Rule 7     command -> help
+Rule 8     command -> debug
+Rule 9     command -> load
+Rule 10    command -> program_line
+Rule 11    command -> empty
+Rule 12    list -> LIST
+Rule 13    program_line -> INT ANY_TEXT
+Rule 14    program_line -> INT
+Rule 15    help -> HELP
+Rule 16    erase -> ERASE
+Rule 17    cls -> CLS
+Rule 18    run -> RUN
+Rule 19    exit -> EXIT
+Rule 20    debug -> DEBUG
+Rule 21    load -> LOAD ANY_TEXT
+Rule 22    empty -> <empty>
+
+Terminals, with rules where they appear
+
+ANY_TEXT             : 13 21
+CIRCUMFLEX           : 
+CLS                  : 17
+COMMA                : 
+DEBUG                : 20
+DIVIDE               : 
+EQUALS               : 
+ERASE                : 16
+EXIT                 : 19
+FLOAT                : 
+GT                   : 
+HELP                 : 15
+INT                  : 13 14
+LINE                 : 
+LIST                 : 12
+LOAD                 : 21
+LPAREN               : 
+LT                   : 
+MINUS                : 
+PLUS                 : 
+RPAREN               : 
+RUN                  : 18
+SEMI_COLON           : 
+STRING_LITERAL       : 
+TIMES                : 
+WORD                 : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+cls                  : 5
+command              : 1
+debug                : 8
+empty                : 11
+erase                : 6
+exit                 : 3
+help                 : 7
+line                 : 0
+list                 : 2
+load                 : 9
+program_line         : 10
+run                  : 4
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . line
+    (1) line -> . command
+    (2) command -> . list
+    (3) command -> . exit
+    (4) command -> . run
+    (5) command -> . cls
+    (6) command -> . erase
+    (7) command -> . help
+    (8) command -> . debug
+    (9) command -> . load
+    (10) command -> . program_line
+    (11) command -> . empty
+    (12) list -> . LIST
+    (19) exit -> . EXIT
+    (18) run -> . RUN
+    (17) cls -> . CLS
+    (16) erase -> . ERASE
+    (15) help -> . HELP
+    (20) debug -> . DEBUG
+    (21) load -> . LOAD ANY_TEXT
+    (13) program_line -> . INT ANY_TEXT
+    (14) program_line -> . INT
+    (22) empty -> .
+
+    LIST            shift and go to state 13
+    EXIT            shift and go to state 14
+    RUN             shift and go to state 15
+    CLS             shift and go to state 16
+    ERASE           shift and go to state 17
+    HELP            shift and go to state 18
+    DEBUG           shift and go to state 19
+    LOAD            shift and go to state 20
+    INT             shift and go to state 21
+    $end            reduce using rule 22 (empty -> .)
+
+    line                           shift and go to state 1
+    command                        shift and go to state 2
+    list                           shift and go to state 3
+    exit                           shift and go to state 4
+    run                            shift and go to state 5
+    cls                            shift and go to state 6
+    erase                          shift and go to state 7
+    help                           shift and go to state 8
+    debug                          shift and go to state 9
+    load                           shift and go to state 10
+    program_line                   shift and go to state 11
+    empty                          shift and go to state 12
+
+state 1
+
+    (0) S' -> line .
+
+
+
+state 2
+
+    (1) line -> command .
+
+    $end            reduce using rule 1 (line -> command .)
+
+
+state 3
+
+    (2) command -> list .
+
+    $end            reduce using rule 2 (command -> list .)
+
+
+state 4
+
+    (3) command -> exit .
+
+    $end            reduce using rule 3 (command -> exit .)
+
+
+state 5
+
+    (4) command -> run .
+
+    $end            reduce using rule 4 (command -> run .)
+
+
+state 6
+
+    (5) command -> cls .
+
+    $end            reduce using rule 5 (command -> cls .)
+
+
+state 7
+
+    (6) command -> erase .
+
+    $end            reduce using rule 6 (command -> erase .)
+
+
+state 8
+
+    (7) command -> help .
+
+    $end            reduce using rule 7 (command -> help .)
+
+
+state 9
+
+    (8) command -> debug .
+
+    $end            reduce using rule 8 (command -> debug .)
+
+
+state 10
+
+    (9) command -> load .
+
+    $end            reduce using rule 9 (command -> load .)
+
+
+state 11
+
+    (10) command -> program_line .
+
+    $end            reduce using rule 10 (command -> program_line .)
+
+
+state 12
+
+    (11) command -> empty .
+
+    $end            reduce using rule 11 (command -> empty .)
+
+
+state 13
+
+    (12) list -> LIST .
+
+    $end            reduce using rule 12 (list -> LIST .)
+
+
+state 14
+
+    (19) exit -> EXIT .
+
+    $end            reduce using rule 19 (exit -> EXIT .)
+
+
+state 15
+
+    (18) run -> RUN .
+
+    $end            reduce using rule 18 (run -> RUN .)
+
+
+state 16
+
+    (17) cls -> CLS .
+
+    $end            reduce using rule 17 (cls -> CLS .)
+
+
+state 17
+
+    (16) erase -> ERASE .
+
+    $end            reduce using rule 16 (erase -> ERASE .)
+
+
+state 18
+
+    (15) help -> HELP .
+
+    $end            reduce using rule 15 (help -> HELP .)
+
+
+state 19
+
+    (20) debug -> DEBUG .
+
+    $end            reduce using rule 20 (debug -> DEBUG .)
+
+
+state 20
+
+    (21) load -> LOAD . ANY_TEXT
+
+    ANY_TEXT        shift and go to state 22
+
+
+state 21
+
+    (13) program_line -> INT . ANY_TEXT
+    (14) program_line -> INT .
+
+    ANY_TEXT        shift and go to state 23
+    $end            reduce using rule 14 (program_line -> INT .)
+
+
+state 22
+
+    (21) load -> LOAD ANY_TEXT .
+
+    $end            reduce using rule 21 (load -> LOAD ANY_TEXT .)
+
+
+state 23
+
+    (13) program_line -> INT ANY_TEXT .
+
+    $end            reduce using rule 13 (program_line -> INT ANY_TEXT .)
+
