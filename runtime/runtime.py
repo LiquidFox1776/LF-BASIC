@@ -461,15 +461,19 @@ class Machine :
 		if len(self.for_stack) == 0 : #if true we are dealing with a fatal error
 			print('NEXT WITHOUT FOR')
 			self.error()
-			
+	
 		tmp_line_number = self.for_stack[-1][0]	
 		tmp_variable_name = self.for_stack[-1][1]
 		tmp_end_value = self.for_stack[-1][2]
 		tmp_step_value = self.for_stack[-1][3]
 		tmp_var_value = self.get_variable_value(tmp_variable_name) 
-		
 		tmp_var_value += tmp_step_value
-		if (tmp_var_value-tmp_end_value) * self.SGN(tmp_step_value) > 0:
+		
+		if tmp_variable_name != variable_name : # if true we are dealing with a for without next which is fatal
+			self.error('Bad control variable {} should be {}'.format(variable_name, tmp_variable_name), 
+			fatal=True, position = 8, verbose=False)
+			
+		if (tmp_var_value-tmp_end_value) * SGN(tmp_step_value) > 0: # if we have reached the end value and need to terminate the loop
 			self.set_variable(variable_name, 'INTEGER',tmp_var_value )
 			self.for_stack.pop()
 		else : # increment or decrement the variable
