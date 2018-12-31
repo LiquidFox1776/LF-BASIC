@@ -39,4 +39,4 @@ This is still a work in progress with some known issues and will take some time 
 I estimate that I will perform some updates to this project at least once a week.
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
