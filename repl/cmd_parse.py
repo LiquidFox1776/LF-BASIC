@@ -25,6 +25,14 @@ if platform.system() == 'Windows' :
 else :
 	cls_command = 'clear'
 
+command_help = {'CLS' :' - Clears the screen',
+'LOAD' :'filename - Loads a bas file specified by filename',
+'RUN' :'- Runs a loaded or entered program',
+'DEBUG': '- Steps through the program line by line displaying various pieces of information',
+'LIST' :'- Displays the program currently in memory',
+'EXIT' :'- Exits the interpreter',
+'HELP' :'- Displays help information'
+}
 def load_file(program) :
 	try :
 		with open(program, 'r') as file :
@@ -54,7 +62,7 @@ def p_command(p):
 				| program_line
 				| empty
 	'''
-
+	
 def p_list(p) :
 	'''
 	list : LIST
@@ -73,8 +81,16 @@ def p_program_line(p) :
 def p_help(p) :
 	'''
 	help : HELP 
+	help : HELP ANY_TEXT
 	'''
-	print("HELP")
+	if len(p) == 2 :
+		for command in command_help :
+			print(command, command_help[command])
+	else :
+		if p[2] in command_help :
+			print(p[2], command_help[p[2]])
+		else :
+			print('Command not found')
 	
 def p_erase(p) :
 	'''
@@ -115,7 +131,7 @@ def p_empty(p) :
 	empty :
 	'''
 	p[0] = None
-#def p_error(p) :
-#	pass
 
+def p_error(p) :
+	print('Syntax Error')
 parser = command_yacc.yacc()

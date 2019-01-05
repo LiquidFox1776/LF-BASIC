@@ -37,38 +37,39 @@ Rule 12    list -> LIST
 Rule 13    program_line -> INT ANY_TEXT
 Rule 14    program_line -> INT
 Rule 15    help -> HELP
-Rule 16    erase -> ERASE
-Rule 17    cls -> CLS
-Rule 18    run -> RUN
-Rule 19    exit -> EXIT
-Rule 20    debug -> DEBUG
-Rule 21    load -> LOAD ANY_TEXT
-Rule 22    empty -> <empty>
+Rule 16    help -> HELP ANY_TEXT
+Rule 17    erase -> ERASE
+Rule 18    cls -> CLS
+Rule 19    run -> RUN
+Rule 20    exit -> EXIT
+Rule 21    debug -> DEBUG
+Rule 22    load -> LOAD ANY_TEXT
+Rule 23    empty -> <empty>
 
 Terminals, with rules where they appear
 
-ANY_TEXT             : 13 21
+ANY_TEXT             : 13 16 22
 CIRCUMFLEX           : 
-CLS                  : 17
+CLS                  : 18
 COMMA                : 
-DEBUG                : 20
+DEBUG                : 21
 DIVIDE               : 
 EQUALS               : 
-ERASE                : 16
-EXIT                 : 19
+ERASE                : 17
+EXIT                 : 20
 FLOAT                : 
 GT                   : 
-HELP                 : 15
+HELP                 : 15 16
 INT                  : 13 14
 LINE                 : 
 LIST                 : 12
-LOAD                 : 21
+LOAD                 : 22
 LPAREN               : 
 LT                   : 
 MINUS                : 
 PLUS                 : 
 RPAREN               : 
-RUN                  : 18
+RUN                  : 19
 SEMI_COLON           : 
 STRING_LITERAL       : 
 TIMES                : 
@@ -107,16 +108,17 @@ state 0
     (10) command -> . program_line
     (11) command -> . empty
     (12) list -> . LIST
-    (19) exit -> . EXIT
-    (18) run -> . RUN
-    (17) cls -> . CLS
-    (16) erase -> . ERASE
+    (20) exit -> . EXIT
+    (19) run -> . RUN
+    (18) cls -> . CLS
+    (17) erase -> . ERASE
     (15) help -> . HELP
-    (20) debug -> . DEBUG
-    (21) load -> . LOAD ANY_TEXT
+    (16) help -> . HELP ANY_TEXT
+    (21) debug -> . DEBUG
+    (22) load -> . LOAD ANY_TEXT
     (13) program_line -> . INT ANY_TEXT
     (14) program_line -> . INT
-    (22) empty -> .
+    (23) empty -> .
 
     LIST            shift and go to state 13
     EXIT            shift and go to state 14
@@ -127,7 +129,7 @@ state 0
     DEBUG           shift and go to state 19
     LOAD            shift and go to state 20
     INT             shift and go to state 21
-    $end            reduce using rule 22 (empty -> .)
+    $end            reduce using rule 23 (empty -> .)
 
     line                           shift and go to state 1
     command                        shift and go to state 2
@@ -234,51 +236,53 @@ state 13
 
 state 14
 
-    (19) exit -> EXIT .
+    (20) exit -> EXIT .
 
-    $end            reduce using rule 19 (exit -> EXIT .)
+    $end            reduce using rule 20 (exit -> EXIT .)
 
 
 state 15
 
-    (18) run -> RUN .
+    (19) run -> RUN .
 
-    $end            reduce using rule 18 (run -> RUN .)
+    $end            reduce using rule 19 (run -> RUN .)
 
 
 state 16
 
-    (17) cls -> CLS .
+    (18) cls -> CLS .
 
-    $end            reduce using rule 17 (cls -> CLS .)
+    $end            reduce using rule 18 (cls -> CLS .)
 
 
 state 17
 
-    (16) erase -> ERASE .
+    (17) erase -> ERASE .
 
-    $end            reduce using rule 16 (erase -> ERASE .)
+    $end            reduce using rule 17 (erase -> ERASE .)
 
 
 state 18
 
     (15) help -> HELP .
+    (16) help -> HELP . ANY_TEXT
 
     $end            reduce using rule 15 (help -> HELP .)
+    ANY_TEXT        shift and go to state 22
 
 
 state 19
 
-    (20) debug -> DEBUG .
+    (21) debug -> DEBUG .
 
-    $end            reduce using rule 20 (debug -> DEBUG .)
+    $end            reduce using rule 21 (debug -> DEBUG .)
 
 
 state 20
 
-    (21) load -> LOAD . ANY_TEXT
+    (22) load -> LOAD . ANY_TEXT
 
-    ANY_TEXT        shift and go to state 22
+    ANY_TEXT        shift and go to state 23
 
 
 state 21
@@ -286,18 +290,25 @@ state 21
     (13) program_line -> INT . ANY_TEXT
     (14) program_line -> INT .
 
-    ANY_TEXT        shift and go to state 23
+    ANY_TEXT        shift and go to state 24
     $end            reduce using rule 14 (program_line -> INT .)
 
 
 state 22
 
-    (21) load -> LOAD ANY_TEXT .
+    (16) help -> HELP ANY_TEXT .
 
-    $end            reduce using rule 21 (load -> LOAD ANY_TEXT .)
+    $end            reduce using rule 16 (help -> HELP ANY_TEXT .)
 
 
 state 23
+
+    (22) load -> LOAD ANY_TEXT .
+
+    $end            reduce using rule 22 (load -> LOAD ANY_TEXT .)
+
+
+state 24
 
     (13) program_line -> INT ANY_TEXT .
 
