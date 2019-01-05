@@ -459,8 +459,7 @@ class Machine :
 		this function does most of the work
 		'''
 		if len(self.for_stack) == 0 : #if true we are dealing with a fatal error
-			print('NEXT WITHOUT FOR')
-			self.error()
+			self.error(error_message = 'Runtime Error NEXT without FOR', fatal=True,verbose=False)
 	
 		tmp_line_number = self.for_stack[-1][0]	
 		tmp_variable_name = self.for_stack[-1][1]
@@ -489,6 +488,8 @@ class Machine :
 		'''
 		if debug == False :
 			position = position - len(str(self.instructions[self.program_counter][0]))
+			if position < 0 :
+				position = 0
 			print (error_message + ' at line label ' + str(self.instructions[self.program_counter][0]))
 			print(self.instructions[self.program_counter][1] + ' starting at position ' +
 			str(position))
