@@ -111,8 +111,7 @@ class Machine :
 		if variable_name in self.variable_table :
 			return self.variable_table.get(variable_name)[0]
 		else : #TODO ERROR HANDLING 
-			print(variable_name + "VARIABLE NOT FOUND")
-			return None
+			self.error(error_message = "Runtime Error, variable not found", position = 0, fatal = True)
 
 	def does_variable_exist(self,variable_name) :
 		'''
@@ -133,9 +132,7 @@ class Machine :
 			if variable_name in self.variable_table :
 				return eval('self.variable_table.get("' + variable_name + '")[1]' + str(index)) # don't like using exec but it will do for now
 			else :
-				print(self.instructions[self.program_counter])
-				print(variable_name + "VARIABLE NOT FOUND")
-				return None
+				self.error(error_message = "Runtime Error, variable not found", position = 0, fatal = True)
 		except :
 			self.error()
 	def delete_variable(self, variable_name) :
@@ -181,9 +178,8 @@ class Machine :
 			#print("FOUND FUNCTION")
 			return self.function_table[func_name][0], self.function_table[func_name][1],self.function_table[func_name][2] # param_list, user_Defined/built_in, function_body
 		else : # FATAL ERROR can't find function
-			print("FUNCTION NOT FOUND")
-			self.error()
-			exit()
+			self.error(error_message = "Runtime Error, function not found", position = 0, fatal = True)
+			
 	def eval_randomize(self) :
 		random.seed()
 		
@@ -324,7 +320,7 @@ class Machine :
 			tmp_line_numbers = self.convert_tuple_tree_to_list(list_of_line_numbers) # convert tree to list [1,2,3,...]
 
 			if (number < 1) or ((number) > len(tmp_line_numbers)) : # if true a fatal exception should occur
-				self.error()
+				self.error(error_message = "Runtime Error, line label not found", position = 0, fatal = True)
 			else :
 				self.goto(tmp_line_numbers[number - 1])
 		
@@ -346,9 +342,7 @@ class Machine :
 
 			self.set_variable(variable_name, variable_type, tmp_array)
 		else :
-			print("Array Already Declared")
-			self.error()
-			exit()
+			self.error(error_message = "Runtime Error, array already declared", position = 0, fatal = True)
 
 	def goto(self,line_number) :
 		'''
@@ -361,9 +355,7 @@ class Machine :
 				return
 
 		if self.goto_flag == False :
-			print("CANT FIND LINE NUMBER") # TODO ERROR HANDLE FATAL ERROR
-			self.error()
-			exit()
+			self.error(error_message = "Runtime Error, cannot find line label", position = 0, fatal = True)
 
 	def gosub(self,line_number) :
 		'''
@@ -379,8 +371,7 @@ class Machine :
 				return
 
 		if self.goto_flag == False :
-			print("CANT FIND LINE NUMBER ", line_number) # TODO RAISE FATAL ERROR
-			exit()
+			self.error(error_message = "Runtime Error, cannot find line label", position = 0, fatal = True)
 
 	def gosub_return(self) :
 		'''
@@ -416,33 +407,27 @@ class Machine :
 
 		for variable in read_list :
 			if self.data_pointer > (len(self.data) -1) : #FATAL EXCEPTION TODO ERROR HANDLING
-				print("OUT OF DATA")
-				self.error()
-				exit()
+				self.error(error_message = "Runtime Error, out of data", position = 0, fatal = True)
 
 			var_type = self.get_variable_type(variable)
 			if var_type is not None :
 				if type(self.data[self.data_pointer]).__name__ == 'str':
 					if var_type != 'STRING' : #data type mismatch move to set_Variable
-						print("ERROR DATA MISMATCH")
-						error()
+						self.error(error_message = "Runtime Error, data mismatch", position = 0, fatal = True)
 					else : # assign the string
 						self.set_variable(variable, 'STRING','"' + self.data[self.data_pointer] + '"')
 						self.data_pointer += 1 # advance the data pointer
 				elif (type(self.data[self.data_pointer]).__name__ == 'int') or (type(self.data[self.data_pointer]).__name__ == 'float'):
 					if var_type == 'STRING' : #data type mismatch move to set_Variable
-						print("ERROR DATA MISMATCH")
-						error()
+						self.error(error_message = "Runtime Error, data mismatch", position = 0, fatal = True)
 					else : # assign the value
 						self.set_variable(variable, 
 						(type(self.data[self.data_pointer]).__name__).upper(), # variable type
 						self.data[self.data_pointer])	# the actual data
 						self.data_pointer += 1 # advance the data pointer
 				
-			else : #TODO ERROR HANDLING for var that does not exist
-				print("VARIABLE NOT FOUND")
-				error()
-				exit()
+			else : #var does not exist
+				self.error(error_message = "Runtime Error, variable does not exist", position = 0, fatal = True)
 	def push_for(self, variable_name, init_value, end_value,step=1) :
 		'''
 		Pushes for data to the for_stack
